@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom"
 /**
  * NewColorForm: Creates and handles the form for making a new box
  * 
@@ -11,12 +12,17 @@ import { useState } from "react";
  * App --> ColorList --> NewColorForm
  */
 
-function NewColorForm({list}){
+function NewColorForm({list, setList}){
+    const navigate = useNavigate();
+    function anchorSub(e){
+      navigate(e.target.id);
+    }
+
     //data and handlChange() modified from example
-    const [formData, setFormData] = useState({val:"#000000"});
+    const [formData, setFormData] = useState({val:0x00FF00});
     //keeps input val props up to date
     const handleChange = evt => {
-        const [ name, value ] = [evt.target.id, evt.target.value];
+        let [ name, value ] = [evt.target.id, evt.target.value];
         setFormData(fData => ({
             ...fData,
             [name]: value
@@ -26,9 +32,8 @@ function NewColorForm({list}){
     
   function onSubmit(e){
     e.preventDefault();
-    console.log(formData)
-    console.log("Everything is working so far")
-    
+    setList(list=>[formData,...list]);
+    navigate("/colors");
   }
 
     return(
@@ -37,7 +42,7 @@ function NewColorForm({list}){
             <input required type="text" id="name" onChange={handleChange}></input><br/>
             <label htmlFor="val">Hex code</label>
             <input required type="color" id="val" onChange={handleChange}></input><br/>
-            <button>Create To Do</button>
+            <button>Create Color</button>
         </form>
     )
 }

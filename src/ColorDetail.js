@@ -13,6 +13,9 @@ import { useParams, useNavigate } from "react-router-dom"
  */
  function ColorDetails({color, list}) {
     const navigate = useNavigate();
+    function anchorSub(e){
+      navigate(e.target.id);
+    }
     const {name} = useParams();
     if(name){
         for(let findColor of list){
@@ -21,16 +24,15 @@ import { useParams, useNavigate } from "react-router-dom"
     }
     if(!color) navigate("/");
     else{
-        console.log("why")
     return (
-        <div className="color" id={color.name} style={{backgroundColor:color.name}}>
+        <div className="color" id={color.name} style={{backgroundColor:color.val}}>
             <h1>
                 This is {color.name}.
             </h1>
             <h2>
                 Isn't it beautiful?
             </h2>
-            <h2><a href="/colors">Go back</a></h2>
+            <h2 onClick={anchorSub} id="/colors">Go back</h2>
         </div>
     );}
 }
