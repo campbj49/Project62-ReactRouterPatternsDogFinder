@@ -1,66 +1,41 @@
 import './App.css';
-import { BrowserRouter, Route, Routes, Navigate, useParams} from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import React, {useState} from 'react';
 
-import DogDetails from './DogDetails';
-import DogList from './DogList';
+import ColorDetails from './ColorDetail';
+import ColorList from './ColorList';
+import NewColorForm from './NewColor';
 
 
 
-function App({dogs}) {
+function App({colorDefaults}) {
+  const [colors, setColors] = useState(colorDefaults);
   return (
     <div className='App'>
     <BrowserRouter>
       <Routes>
-        <Route path="/dogs" element={<DogList list={dogs}/>} />
-        <Route path="/dogs/:name" element={<DogDetails list={dogs}/>} />
+        <Route exact path="/colors" element={<ColorList list={colors}/>} />
+        <Route exact path="/colors/new" element={<NewColorForm list={colors}/>} />
+        <Route exact path="/colors/:name" element={<ColorDetails list={colors}/>} />
       </Routes>
-      <Navigate to="/dogs" />
     </BrowserRouter>
     </div>
   );
 }
 
 App.defaultProps = {
-  dogs: [
+  colorDefaults: [
     {
-      name: "Whiskey",
-      age: 5,
-      src: "whiskey",
-      facts: [
-        "Whiskey loves eating popcorn.",
-        "Whiskey is a terrible guard dog.",
-        "Whiskey wants to cuddle with you!"
-      ]
+      name: "red",
+      val: 0xFF0000,
     },
     {
-      name: "Duke",
-      age: 3,
-      src: "duke",
-      facts: [
-        "Duke believes that ball is life.",
-        "Duke likes snow.",
-        "Duke enjoys pawing other dogs."
-      ]
+      name: "blue",
+      val:0x0000FF
     },
     {
-      name: "Perry",
-      age: 4,
-      src: "perry",
-      facts: [
-        "Perry loves all humans.",
-        "Perry demolishes all snacks.",
-        "Perry hates the rain."
-      ]
-    },
-    {
-      name: "Tubby",
-      age: 4,
-      src: "tubby",
-      facts: [
-        "Tubby is really stupid.",
-        "Tubby does not like walks.",
-        "Angelina used to hate Tubby, but claims not to anymore."
-      ]
+      name: "green",
+      val:0x00FF00
     }
   ]
 }
