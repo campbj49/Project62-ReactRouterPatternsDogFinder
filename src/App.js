@@ -1,16 +1,30 @@
 import './App.css';
+import { BrowserRouter, Route, Routes, Navigate, useParams} from "react-router-dom";
 
-function App() {
+import DogDetails from './DogDetails';
+import DogList from './DogList';
+
+
+
+function App({dogs}) {
   return (
-    <Switch>
-      <Route exact path="/dogs" >
-        <DogList /> // what props will this need?
-      </Route>
-      <Route path="/dogs/:name" >
-        <DogDetails /> // what props will this need?
-      </Route>
-      <Redirect to="/dogs" />
-    </Switch>
+    <div className='App'>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/dogs" element={<DogList list={dogs}/>} />
+        <Route path="/dogs/:name" element={<DogDetails list={dogs}/>} />
+      </Routes>
+    </BrowserRouter>
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path='/dogs'>
+            <Route index element={<DogList list={dogs}/>} />
+            <Route exact path=":name" element={<DogDetails list={dogs}/>} />
+          </Route>
+        </Routes>
+        <Navigate to="/dogs" />
+      </BrowserRouter> */}
+    </div>
   );
 }
 
@@ -19,7 +33,7 @@ App.defaultProps = {
     {
       name: "Whiskey",
       age: 5,
-      src: whiskey,
+      src: "whiskey",
       facts: [
         "Whiskey loves eating popcorn.",
         "Whiskey is a terrible guard dog.",
@@ -29,7 +43,7 @@ App.defaultProps = {
     {
       name: "Duke",
       age: 3,
-      src: duke,
+      src: "duke",
       facts: [
         "Duke believes that ball is life.",
         "Duke likes snow.",
@@ -39,7 +53,7 @@ App.defaultProps = {
     {
       name: "Perry",
       age: 4,
-      src: perry,
+      src: "perry",
       facts: [
         "Perry loves all humans.",
         "Perry demolishes all snacks.",
@@ -49,7 +63,7 @@ App.defaultProps = {
     {
       name: "Tubby",
       age: 4,
-      src: tubby,
+      src: "tubby",
       facts: [
         "Tubby is really stupid.",
         "Tubby does not like walks.",
