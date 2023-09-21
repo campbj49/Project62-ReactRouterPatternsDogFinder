@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 /** DogDetails: displays list of links in the router
  * 
@@ -12,16 +12,20 @@ import { useParams } from "react-router-dom"
  * App --> DogDetails --> Item
  */
  function DogDetails({dog, list}) {
+    const navigate = useNavigate();
     const {name} = useParams();
     if(name){
         for(let findDog of list){
             if(findDog.src === name) dog = findDog;
         }
     }
-    
+    if(!dog) navigate("/");
+    else{
+
     let facts = []
     for(let fact of dog.facts)
         facts.push(<li>{fact}</li>)
+    
     return (
         <div className="dog" id={dog.src}>
             <h1>
@@ -34,7 +38,7 @@ import { useParams } from "react-router-dom"
                 {facts}
             </ul>
         </div>
-    );
+    );}
 }
 
 export default DogDetails;

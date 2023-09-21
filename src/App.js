@@ -14,16 +14,8 @@ function App({dogs}) {
         <Route path="/dogs" element={<DogList list={dogs}/>} />
         <Route path="/dogs/:name" element={<DogDetails list={dogs}/>} />
       </Routes>
+      <Navigate to="/dogs" />
     </BrowserRouter>
-      {/* <BrowserRouter>
-        <Routes>
-          <Route path='/dogs'>
-            <Route index element={<DogList list={dogs}/>} />
-            <Route exact path=":name" element={<DogDetails list={dogs}/>} />
-          </Route>
-        </Routes>
-        <Navigate to="/dogs" />
-      </BrowserRouter> */}
     </div>
   );
 }
